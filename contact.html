@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | St Paul's Cleaning Services — Epsom, Surrey</title>
+    <meta name="description" content="Get a free, no-obligation quote from St Paul's Cleaning Services. Covering Epsom, Sutton, Wimbledon, Kingston, Cheam, Banstead and across Surrey. Call or fill in our quick form.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy:#243A5E; --navy-d:#182840; --red:#C0392B; --red-d:#a93226; --blue:#5DADE2; --grey:#F4F6F7; --grey-2:#E4E9EE; --white:#FFFFFF; --text:#222; --muted:#667; --nav-h:150px; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text); overflow-x: hidden; background: var(--white); }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: var(--nav-h); background: var(--white); border-bottom: 1px solid var(--grey-2); display: flex; align-items: center; justify-content: space-between; padding: 0 6%; transition: box-shadow 0.3s, height 0.3s; }
+        nav.compact { height: 72px; box-shadow: 0 4px 24px rgba(36,58,94,0.1); }
+        .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--navy); padding: 0.55rem 0.9rem; border-radius: 3px; position: relative; transition: color 0.2s; }
+        .nav-links a:not(.nav-cta):hover { color: var(--red); }
+        .nav-links a:not(.nav-cta)::after { content: ''; position: absolute; bottom: 0; left: 0.9rem; right: 0.9rem; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+        .nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+        .nav-cta { background: var(--red); color: var(--white) !important; padding: 0.6rem 1.4rem !important; box-shadow: 0 4px 14px rgba(192,57,43,0.3); transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important; }
+        .nav-cta:hover { background: var(--red-d) !important; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(192,57,43,0.4) !important; }
+        .nav-cta::after { display: none !important; }
+        .nav-logo { flex-shrink: 0; }
+        .nav-logo img { height: 144px; display: block; transition: height 0.3s; }
+        nav.compact .nav-logo img { height: 60px; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        .mob-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--white); flex-direction: column; justify-content: center; align-items: stretch; z-index: 299; padding-top: var(--nav-h); overflow-y: auto; }
+        .mob-menu.open { display: flex; }
+        .mob-menu a { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--navy); padding: 1.5rem 8%; border-bottom: 1px solid var(--grey); text-align: center; transition: background 0.2s, color 0.2s; }
+        .mob-menu a:hover { background: var(--grey); }
+        .mob-menu a:last-child { color: var(--red); border-bottom: none; }
+
+        /* UTILITIES */
+        .sec { padding: 7rem 6%; }
+        .sec-narrow { max-width: 1100px; margin: 0 auto; }
+        .s-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--red); display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
+        .s-label::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--red); }
+        .s-label.light { color: var(--blue); }
+        .s-label.light::before { background: var(--blue); }
+        .s-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.1; color: var(--navy); }
+        .s-title em { color: var(--red); font-style: normal; }
+        .s-title.light { color: var(--white); }
+        .s-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 560px; margin-top: 0.9rem; }
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PAGE HERO */
+        .page-hero { min-height: 44vh; padding-top: var(--nav-h); background: var(--navy); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 28px 28px; }
+        .page-hero-ring { position: absolute; transform: rotate(45deg); pointer-events: none; border: 1.5px solid rgba(93,173,226,0.12); }
+        .page-hero-ring-1 { width: 500px; height: 500px; right: -8%; top: 50%; transform: translateY(-50%) rotate(45deg); }
+        .page-hero-ring-2 { width: 280px; height: 280px; right: 8%; top: 50%; transform: translateY(-48%) rotate(45deg); }
+        .page-hero-inner { position: relative; z-index: 1; padding: 4rem 6%; }
+        .page-hero-eyebrow { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s; }
+        .page-hero-eyebrow::before { content: ''; width: 26px; height: 1.5px; background: var(--blue); }
+        .page-hero h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 4.5vw, 4rem); color: var(--white); line-height: 1.05; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.25s; }
+        .page-hero h1 span { color: var(--red); }
+        .page-hero-desc { font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.8; max-width: 580px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
+
+        /* WHY CONTACT CARDS */
+        .why-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .why-card { background: var(--white); border: 1.5px solid var(--grey-2); border-radius: 6px; padding: 2rem 1.8rem; }
+        .why-card-icon { width: 44px; height: 44px; background: var(--grey); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; }
+        .why-card-icon svg { width: 20px; height: 20px; }
+        .why-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.5rem; }
+        .why-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+        /* CONTACT SPLIT */
+        .contact-split { display: flex; min-height: 680px; }
+        .contact-left { flex: 1; background: var(--navy); padding: 5.5rem 5% 5.5rem 6%; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .contact-left::before { content: ''; position: absolute; bottom: -80px; right: -80px; width: 300px; height: 300px; border: 50px solid rgba(192,57,43,0.1); transform: rotate(45deg); pointer-events: none; }
+        .contact-left-inner { position: relative; z-index: 1; max-width: 420px; }
+        .contact-left h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--white); line-height: 1.15; margin-bottom: 1rem; }
+        .contact-left h2 em { color: var(--red); font-style: normal; }
+        .contact-left-inner > p { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 2.5rem; }
+        .contact-details { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.5rem; }
+        .contact-detail { display: flex; align-items: center; gap: 0.85rem; font-size: 0.88rem; color: rgba(255,255,255,0.75); }
+        .contact-detail-icon { width: 34px; height: 34px; min-width: 34px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); }
+        .contact-detail-icon svg { width: 15px; height: 15px; }
+        .mini-testi { display: flex; flex-direction: column; gap: 1rem; margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        .mini-testi-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 5px; padding: 1rem 1.2rem; }
+        .mini-testi-stars { color: #FBBC04; font-size: 0.82rem; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+        .mini-testi-text { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; font-style: italic; margin-bottom: 0.6rem; }
+        .mini-testi-author { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; color: rgba(255,255,255,0.9); letter-spacing: 0.05em; margin-bottom: 0.15rem; }
+        .mini-testi-meta { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-bottom: 0.5rem; }
+        .mini-testi-google { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; }
+        .mini-testi-google svg { flex-shrink: 0; }
+        .mini-testi-google span { font-size: 0.65rem; color: rgba(255,255,255,0.3); font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em; }
+        .contact-right { flex: 1; background: var(--white); padding: 5.5rem 6% 5.5rem 5%; display: flex; align-items: center; }
+        .contact-form-wrap { width: 100%; max-width: 480px; }
+        .contact-form-wrap h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.4rem; }
+        .contact-form-wrap > p { font-size: 0.88rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.45rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 1.5px solid var(--grey-2); border-radius: 4px; font-family: 'Open Sans', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(36,58,94,0.07); }
+        .form-group textarea { resize: vertical; min-height: 110px; }
+        .form-submit { width: 100%; padding: 1rem; background: var(--navy); color: var(--white); border: none; border-radius: 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; margin-top: 0.3rem; }
+        .form-submit:hover { background: var(--red); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(192,57,43,0.3); }
+
+        /* AREAS */
+        .areas-section { background: var(--navy); }
+        .areas-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.5rem; }
+        .area-tag { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.08em; padding: 0.45rem 1rem; border-radius: 100px; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+        .area-tag:hover { background: rgba(93,173,226,0.15); border-color: var(--blue); color: var(--white); }
+        .areas-note { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 2rem; line-height: 1.7; max-width: 700px; }
+
+        /* FOOTER */
+        footer { background: var(--navy-d); color: rgba(255,255,255,0.6); padding: 4rem 6% 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-brand img { height: 72px; display: block; margin-bottom: 1rem; background: rgba(255,255,255,0.95); border-radius: 6px; padding: 6px 10px; }
+        .footer-brand p { font-size: 0.85rem; line-height: 1.7; max-width: 230px; }
+        .footer-col h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); margin-bottom: 1.1rem; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+        .footer-col a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.84rem; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--blue); }
+        .footer-contact-row { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.84rem; color: rgba(255,255,255,0.5); margin-bottom: 0.55rem; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
+        .footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .footer-legal a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
+        .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+        .footer-mark { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3); }
+        .footer-mark span { width: 6px; height: 6px; background: var(--red); transform: rotate(45deg); display: inline-block; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } .why-cards { grid-template-columns: 1fr 1fr; } .contact-split { flex-direction: column; } .contact-left { padding: 4rem 6%; } .contact-right { padding: 4rem 6%; } .contact-left-inner { max-width: 100%; } }
+        @media (max-width: 768px) { :root { --nav-h: 100px; } .nav-links { display: none; } .hamburger { display: flex; } .nav-logo img { height: 80px; } nav.compact .nav-logo img { height: 48px; } .footer-grid { grid-template-columns: 1fr; } .why-cards { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .sec { padding: 5rem 5%; } }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#prices">Prices</a></li>
+        <li><a href="index.html#our-work">Our Work</a></li>
+        <li><a href="index.html#about">Why Choose Us</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo">
+        <a href="index.html"><img src="StPauls-logo.png" alt="St Paul's Cleaning Services"></a>
+    </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#prices">Prices</a>
+    <a href="index.html#our-work">Our Work</a>
+    <a href="index.html#about">Why Choose Us</a>
+    <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+    <div class="page-hero-ring page-hero-ring-1"></div>
+    <div class="page-hero-ring page-hero-ring-2"></div>
+    <div class="page-hero-inner">
+        <div class="page-hero-eyebrow">Free, No-Obligation Quotes</div>
+        <h1>Get in Touch with<br><span>St Paul's Cleaning</span></h1>
+        <p class="page-hero-desc">We'd love to hear from you. Whether you need a one-off deep clean, a regular weekly service, or a specialist oven or carpet clean — we'll find the right solution for your home and budget. Based in Epsom, Surrey, serving homes within a 15-mile radius.</p>
+    </div>
+</section>
+
+<!-- WHY CONTACT -->
+<section class="sec" style="background: var(--grey); padding: 5rem 6%;">
+    <div class="sec-narrow">
+        <div class="why-cards">
+            <div class="why-card reveal">
+                <div class="why-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Response Within 24 Hours</h3>
+                <p>We respond to every enquiry within 24 hours — often much sooner. Fill in the form and we'll be in touch to discuss your requirements.</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <h3>Transparent, Fixed Quotes</h3>
+                <p>Every quote is fixed and agreed upfront — no hidden charges, no surprises. You pay exactly what you're quoted, every time.</p>
+            </div>
+            <div class="why-card reveal">
+                <div class="why-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Fully Insured &amp; DBS Checked</h3>
+                <p>Every member of our team is DBS checked, fully insured, and personally vetted. Your home is in completely safe hands.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SPLIT -->
+<div class="contact-split">
+    <!-- Left -->
+    <div class="contact-left reveal">
+        <div class="contact-left-inner">
+            <div class="s-label light">Get in Touch</div>
+            <h2>Ready for a<br><em>Spotless</em> Home?</h2>
+            <p>Get a free, no-obligation quote today. We'll respond within 24 hours to discuss your requirements and find the perfect service for you.</p>
+
+            <div class="contact-details">
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                    </div>
+                    07700 000000
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    info@stpaulscleaning.co.uk
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    Epsom, Surrey &amp; Surrounding Areas
+                </div>
+            </div>
+
+            <div class="mini-testi">
+                <div class="mini-testi-item">
+                    <div class="mini-testi-stars">★★★★★</div>
+                    <p class="mini-testi-text">"Andreza and her team have been cleaning for us for 18 years. Reliable, honest and totally trustworthy. I have no hesitation in recommending her to anybody."</p>
+                    <div class="mini-testi-author">Louisa Winter</div>
+                    <div class="mini-testi-meta">7 reviews · a year ago</div>
+                    <div class="mini-testi-google">
+                        <svg width="12" height="12" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        <span>Posted on Google</span>
+                    </div>
+                </div>
+                <div class="mini-testi-item">
+                    <div class="mini-testi-stars">★★★★★</div>
+                    <p class="mini-testi-text">"Andreza and team are brilliant — so efficient and the house is always so lovely and clean."</p>
+                    <div class="mini-testi-author">Leah Mursaleen</div>
+                    <div class="mini-testi-meta">3 reviews · a year ago</div>
+                    <div class="mini-testi-google">
+                        <svg width="12" height="12" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        <span>Posted on Google</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right — form -->
+    <div class="contact-right reveal">
+        <div class="contact-form-wrap">
+            <h3>Request a Free Quote</h3>
+            <p>Fill in the form below and we'll be in touch within 24 hours.</p>
+            <form id="quoteForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="Jane" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Smith" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="jane@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="07700 000000">
+                </div>
+                <div class="form-group">
+                    <label>Service Required</label>
+                    <select>
+                        <option value="">Select a service…</option>
+                        <option>Regular House Cleaning</option>
+                        <option>Deep Cleaning</option>
+                        <option>End of Tenancy Cleaning</option>
+                        <option>Oven &amp; BBQ Cleaning</option>
+                        <option>Carpet Cleaning</option>
+                        <option>Multiple Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Additional Details</label>
+                    <textarea placeholder="Property size, specific requirements, preferred dates…"></textarea>
+                </div>
+                <button type="submit" class="form-submit" id="submitBtn">
+                    Request a Free Quote &rarr;
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AREAS WE COVER -->
+<section class="sec areas-section">
+    <div class="sec-narrow">
+        <div class="s-label light">Service Coverage</div>
+        <h2 class="s-title light">Areas We Cover Across<br><em style="color:var(--blue);">Surrey &amp; South West London</em></h2>
+        <p class="s-sub" style="color:rgba(255,255,255,0.55);">St Paul's Cleaning Services operates within a 15-mile radius of Epsom, Surrey. We cover homes and rental properties across the following areas — if you're not listed, get in touch and we'll confirm your postcode.</p>
+        <div class="areas-grid">
+            <span class="area-tag">Epsom</span>
+            <span class="area-tag">Sutton</span>
+            <span class="area-tag">Ewell</span>
+            <span class="area-tag">Wimbledon</span>
+            <span class="area-tag">Cheam</span>
+            <span class="area-tag">Banstead</span>
+            <span class="area-tag">Kingston upon Thames</span>
+            <span class="area-tag">Wallington</span>
+            <span class="area-tag">Carshalton</span>
+            <span class="area-tag">Raynes Park</span>
+            <span class="area-tag">Merton</span>
+            <span class="area-tag">Colliers Wood</span>
+            <span class="area-tag">Morden</span>
+            <span class="area-tag">Worcester Park</span>
+            <span class="area-tag">New Malden</span>
+            <span class="area-tag">Motspur Park</span>
+            <span class="area-tag">Stoneleigh</span>
+            <span class="area-tag">Tadworth</span>
+            <span class="area-tag">Kingswood</span>
+            <span class="area-tag">West Molesey</span>
+            <span class="area-tag">Hampton Court</span>
+        </div>
+        <p class="areas-note">We provide regular cleaning, deep cleaning, end of tenancy cleaning, oven cleaning and carpet cleaning across Epsom, Sutton, Wimbledon, Kingston upon Thames, Cheam, Banstead, Ewell, Wallington, Carshalton, Raynes Park, Merton, Colliers Wood, Morden, Worcester Park, New Malden, Motspur Park, Stoneleigh, Tadworth, Kingswood, West Molesey and Hampton Court. All within 15 miles of Epsom, Surrey.</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="StPauls-logo.png" alt="St Paul's Cleaning Services">
+            <p>Professional cleaning services delivered with care, consistency, and an uncompromising attention to detail. Your satisfaction is always guaranteed.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="regular-cleaning.html">Regular Cleaning</a></li>
+                <li><a href="deep-clean.html">Deep Cleaning</a></li>
+                <li><a href="deep-clean.html">End of Tenancy</a></li>
+                <li><a href="oven-cleaning.html">Oven &amp; BBQ</a></li>
+                <li><a href="carpet-cleaning.html">Carpet Cleaning</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#our-work">Our Work</a></li>
+                <li><a href="index.html#about">Why Choose Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                <span>07700 000000</span>
+            </div>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>info@stpaulscleaning.co.uk</span>
+            </div>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Epsom, Surrey &amp; Surrounding Areas</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 St Paul's Cleaning Services. All rights reserved.</span>
+        <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="footer-mark"><span></span><small>Professional. Reliable. Spotless.</small><span></span></div>
+    </div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('compact', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobMenu = document.getElementById('mobMenu');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobMenu.classList.toggle('open');
+        if (mobMenu.classList.contains('open')) {
+            mobMenu.style.paddingTop = navbar.offsetHeight + 'px';
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    }));
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => { if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('in'), i * 80); revealObserver.unobserve(entry.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = '✓ Request Sent!';
+        btn.style.background = '#27ae60';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.textContent = 'Request a Free Quote →';
+            btn.style.background = '';
+            btn.disabled = false;
+            e.target.reset();
+        }, 3500);
+    }
+</script>
+</body>
+</html>

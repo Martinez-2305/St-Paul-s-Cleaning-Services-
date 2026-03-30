@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St Paul's Cleaning Services — Professional Home Cleaning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════
+           TOKENS
+        ═══════════════════════════════════ */
+        :root {
+            --navy:      #243A5E;
+            --navy-d:    #182840;
+            --red:       #C0392B;
+            --red-d:     #a93226;
+            --blue:      #5DADE2;
+            --grey:      #F4F6F7;
+            --grey-2:    #E4E9EE;
+            --white:     #FFFFFF;
+            --text:      #222;
+            --muted:     #667;
+            --nav-h:     150px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* ═══════════════════════════════════
+           NAVIGATION
+        ═══════════════════════════════════ */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 300;
+            height: var(--nav-h);
+            background: var(--white);
+            border-bottom: 1px solid var(--grey-2);
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            transition: box-shadow 0.3s, height 0.3s;
+        }
+        nav.compact {
+            height: 72px;
+            box-shadow: 0 4px 24px rgba(36,58,94,0.1);
+        }
+
+        .nav-links {
+            display: flex; align-items: center;
+            gap: 0.25rem; list-style: none;
+        }
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.72rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            text-decoration: none; color: var(--navy);
+            padding: 0.55rem 0.9rem; border-radius: 3px;
+            position: relative; transition: color 0.2s, background 0.2s;
+        }
+        .nav-links a:not(.nav-cta):hover { color: var(--red); }
+        .nav-links a:not(.nav-cta)::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0.9rem; right: 0.9rem; height: 2px;
+            background: var(--red); transform: scaleX(0);
+            transform-origin: left; transition: transform 0.3s;
+        }
+        .nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+        .nav-cta {
+            background: var(--red); color: var(--white) !important;
+            padding: 0.6rem 1.4rem !important;
+            box-shadow: 0 4px 14px rgba(192,57,43,0.3);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important;
+        }
+        .nav-cta:hover {
+            background: var(--red-d) !important; transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(192,57,43,0.4) !important;
+        }
+        .nav-cta::after { display: none !important; }
+
+        .nav-logo { flex-shrink: 0; }
+        .nav-logo img { height: 144px; display: block; transition: height 0.3s; }
+        nav.compact .nav-logo img { height: 60px; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none; flex-direction: column;
+            gap: 5px; cursor: pointer; background: none; border: none; padding: 4px;
+        }
+        .hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--navy); transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+        /* Mobile menu — full screen overlay */
+        .mob-menu {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--white);
+            flex-direction: column;
+            justify-content: center; align-items: stretch;
+            z-index: 299;
+            padding-top: var(--nav-h);
+            overflow-y: auto;
+        }
+        .mob-menu.open { display: flex; }
+        .mob-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; font-size: 1.3rem;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            text-decoration: none; color: var(--navy);
+            padding: 1.5rem 8%; border-bottom: 1px solid var(--grey);
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+        }
+        .mob-menu a:hover { background: var(--grey); }
+        .mob-menu a:last-child { color: var(--red); border-bottom: none; }
+
+        /* ═══════════════════════════════════
+           SECTION UTILITY
+        ═══════════════════════════════════ */
+        .sec { padding: 7rem 6%; }
+        .sec-narrow { max-width: 1100px; margin: 0 auto; }
+
+        /* Section label + title pattern */
+        .s-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.68rem;
+            letter-spacing: 0.28em; text-transform: uppercase;
+            color: var(--red);
+            display: inline-flex; align-items: center; gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+        .s-label::before {
+            content: ''; display: inline-block;
+            width: 24px; height: 1.5px; background: var(--red);
+        }
+        .s-label.light { color: var(--blue); }
+        .s-label.light::before { background: var(--blue); }
+
+        .s-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            line-height: 1.1; color: var(--navy);
+        }
+        .s-title.light { color: var(--white); }
+        .s-title em { color: var(--red); font-style: normal; }
+
+        .s-sub {
+            font-size: 0.95rem; color: var(--muted);
+            line-height: 1.8; max-width: 500px;
+            margin-top: 0.9rem;
+        }
+        .s-sub.light { color: rgba(255,255,255,0.6); }
+
+        /* Watermark section number */
+        .s-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(100px, 16vw, 200px);
+            line-height: 0.85;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--grey-2);
+            user-select: none; pointer-events: none;
+            position: absolute; right: 5%; top: -0.15em;
+            z-index: 0; letter-spacing: -0.05em;
+        }
+        .s-num.light { -webkit-text-stroke-color: rgba(255,255,255,0.07); }
+
+        /* Diamond bullet */
+        .diamond {
+            display: inline-block;
+            width: 9px; min-width: 9px; height: 9px;
+            background: var(--red); transform: rotate(45deg);
+        }
+        .diamond.sm { width: 6px; min-width: 6px; height: 6px; }
+        .diamond.blue { background: var(--blue); }
+        .diamond.white { background: rgba(255,255,255,0.5); }
+
+        /* CTA buttons */
+        .btn {
+            display: inline-block; text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.78rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.95rem 2rem; border-radius: 3px;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            border: none; cursor: pointer;
+        }
+        .btn-red {
+            background: var(--red); color: var(--white);
+            box-shadow: 0 6px 20px rgba(192,57,43,0.35);
+        }
+        .btn-red:hover {
+            background: var(--red-d); transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(192,57,43,0.45);
+        }
+        .btn-outline {
+            border: 2px solid rgba(255,255,255,0.4); color: var(--white);
+        }
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.08); transform: translateY(-2px);
+        }
+        .btn-outline-navy {
+            border: 2px solid var(--navy); color: var(--navy);
+        }
+        .btn-outline-navy:hover {
+            background: var(--navy); color: var(--white); transform: translateY(-2px);
+        }
+
+        /* ═══════════════════════════════════
+           01 — HERO
+        ═══════════════════════════════════ */
+        #hero {
+            min-height: 100vh;
+            padding-top: var(--nav-h);
+            background: var(--navy);
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+        }
+
+        /* Dot grid texture */
+        #hero::before {
+            content: ''; position: absolute; inset: 0; z-index: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* ── Floating background icons */
+        .hero-bg-icons {
+            position: absolute; inset: 0; z-index: 0;
+            overflow: hidden; pointer-events: none;
+        }
+        .hbi {
+            position: absolute;
+            opacity: 0;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+        @keyframes hbiFloat {
+            0%   { transform: translateY(0)     rotate(0deg);   opacity: var(--op); }
+            50%  { transform: translateY(-22px) rotate(6deg);   opacity: calc(var(--op) * 1.4); }
+            100% { transform: translateY(0)     rotate(0deg);   opacity: var(--op); }
+        }
+        @keyframes hbiBob {
+            0%   { transform: translateY(0)     rotate(0deg)   scale(1);    opacity: var(--op); }
+            40%  { transform: translateY(-18px) rotate(-5deg)  scale(1.05); opacity: calc(var(--op) * 1.5); }
+            100% { transform: translateY(0)     rotate(0deg)   scale(1);    opacity: var(--op); }
+        }
+        @keyframes hbiSpin {
+            0%   { transform: translateY(0) rotate(0deg);   opacity: var(--op); }
+            50%  { transform: translateY(-14px) rotate(180deg); opacity: calc(var(--op) * 1.6); }
+            100% { transform: translateY(0) rotate(360deg); opacity: var(--op); }
+        }
+        @keyframes hbiPulse {
+            0%,100% { transform: scale(1) translateY(0);   opacity: var(--op); }
+            50%      { transform: scale(1.2) translateY(-10px); opacity: calc(var(--op) * 1.8); }
+        }
+
+        /* Large diamond rings */
+        .hero-ring {
+            position: absolute; border-radius: 0;
+            transform: rotate(45deg); pointer-events: none; z-index: 0;
+        }
+        .hero-ring-1 {
+            width: 700px; height: 700px;
+            border: 100px solid rgba(192,57,43,0.08);
+            right: -15%; top: 50%; transform: translateY(-55%) rotate(45deg);
+        }
+        .hero-ring-2 {
+            width: 420px; height: 420px;
+            border: 1.5px solid rgba(93,173,226,0.15);
+            right: 4%; top: 50%; transform: translateY(-48%) rotate(45deg);
+        }
+        .hero-ring-3 {
+            width: 200px; height: 200px;
+            border: 1.5px solid rgba(93,173,226,0.08);
+            right: 13%; top: 50%; transform: translateY(-52%) rotate(45deg);
+        }
+
+        /* Main flex body */
+        .hero-body {
+            flex: 1; display: flex; align-items: center;
+            padding: 4rem 6% 3rem; gap: 4rem;
+            position: relative; z-index: 1;
+        }
+
+        /* Left — text */
+        .hero-text { flex: 1; max-width: 1000px; }
+
+        .hero-eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.7rem;
+            letter-spacing: 0.26em; text-transform: uppercase;
+            color: var(--blue);
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 1.8rem;
+            opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s;
+        }
+        .hero-eyebrow::before {
+            content: ''; width: 26px; height: 1.5px; background: var(--blue);
+        }
+
+        .hero-h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 5.5vw, 5rem);
+            color: var(--white); line-height: 1.02;
+            margin-bottom: 1.6rem;
+            opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s;
+        }
+        .hero-h1 span { color: var(--red); display: block; }
+
+        .hero-desc {
+            font-size: 1.02rem; color: rgba(255,255,255,0.68);
+            line-height: 1.85; max-width: 460px;
+            margin-bottom: 2.5rem;
+            opacity: 0; animation: fadeUp 0.6s ease forwards 0.6s;
+        }
+
+        .hero-btns {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+            opacity: 0; animation: fadeUp 0.6s ease forwards 0.8s;
+        }
+
+        /* Inline stats */
+        .hero-stats {
+            display: flex; gap: 2.5rem; flex-wrap: wrap;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0; animation: fadeUp 0.6s ease forwards 1s;
+        }
+        .h-stat-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 2rem;
+            color: var(--white); display: block; line-height: 1;
+        }
+        .h-stat-num em { color: var(--red); font-style: normal; }
+        .h-stat-lbl {
+            font-size: 0.74rem; color: rgba(255,255,255,0.5);
+            letter-spacing: 0.06em; margin-top: 0.3rem; display: block;
+        }
+
+        /* Right — image stack */
+        .hero-visual {
+            flex: 0 0 420px; position: relative; height: 520px;
+            opacity: 0; animation: fadeUp 0.7s ease forwards 0.7s;
+        }
+        .hero-img-main {
+            position: absolute; right: 0; top: 0;
+            width: 88%; height: 88%;
+            object-fit: cover; border-radius: 6px; display: block;
+        }
+        /* Frame accents */
+        .hero-visual::before {
+            content: ''; position: absolute;
+            top: -12px; right: -12px;
+            width: 56%; height: 56%;
+            border-top: 3px solid var(--red);
+            border-right: 3px solid var(--red);
+        }
+        .hero-visual::after {
+            content: ''; position: absolute;
+            bottom: -12px; left: -12px;
+            width: 56%; height: 56%;
+            border-bottom: 3px solid var(--blue);
+            border-left: 3px solid var(--blue);
+        }
+        /* Floating badge */
+        .hero-badge {
+            position: absolute; bottom: 14%; left: -8%;
+            background: var(--red); color: var(--white);
+            width: 110px; height: 110px; border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(192,57,43,0.45);
+            z-index: 2;
+        }
+        .hero-badge strong {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 1.6rem; line-height: 1;
+        }
+        .hero-badge span { font-size: 0.62rem; opacity: 0.9; margin-top: 0.2rem; }
+
+        /* ═══════════════════════════════════
+           02 — SERVICES
+        ═══════════════════════════════════ */
+        #services {
+            background: var(--white);
+            position: relative; overflow: hidden;
+        }
+
+        .services-header {
+            display: flex; align-items: flex-end;
+            justify-content: space-between; gap: 2rem;
+            margin-bottom: 3.5rem; flex-wrap: wrap;
+        }
+
+        .svc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+
+        .svc-card {
+            position: relative; overflow: hidden;
+            border: 1.5px solid var(--grey-2);
+            border-radius: 6px; padding: 2.6rem 2.2rem;
+            background: var(--white);
+            transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                        box-shadow 0.35s, border-color 0.3s;
+        }
+        /* Navy fill on hover */
+        .svc-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--navy);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+            z-index: 0;
+        }
+        .svc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(36,58,94,0.14); border-color: var(--navy); }
+        .svc-card:hover::before { transform: translateY(0); }
+        .svc-card:hover .svc-num,
+        .svc-card:hover .svc-name,
+        .svc-card:hover .svc-desc { color: rgba(255,255,255,0.9); }
+        .svc-card:hover .svc-name { color: var(--white); }
+        .svc-card:hover .svc-icon-bg { background: rgba(255,255,255,0.1); }
+        .svc-card:hover .svc-arrow { opacity: 1; transform: translateX(0); color: var(--red); }
+
+        .svc-card > * { position: relative; z-index: 1; }
+
+        .svc-card-top {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; margin-bottom: 1.8rem;
+        }
+        .svc-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 0.68rem;
+            letter-spacing: 0.2em; color: var(--muted);
+            transition: color 0.3s;
+        }
+        .svc-icon-wrap { width: 48px; height: 48px; position: relative; }
+        .svc-icon-bg {
+            position: absolute; inset: 4px;
+            background: var(--grey); transform: rotate(45deg);
+            transition: background 0.3s;
+        }
+        .svc-icon-wrap svg {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 20px; height: 20px;
+            transition: stroke 0.3s;
+        }
+        .svc-card:hover .svc-icon-wrap svg { stroke: var(--white); }
+
+        .svc-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; font-size: 1.08rem;
+            color: var(--navy); line-height: 1.3;
+            margin-bottom: 0.65rem;
+            transition: color 0.3s;
+        }
+        .svc-desc {
+            font-size: 0.87rem; color: var(--muted);
+            line-height: 1.72; transition: color 0.3s;
+        }
+        .svc-arrow {
+            display: inline-block; margin-top: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.72rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            opacity: 0; transform: translateX(-8px);
+            transition: opacity 0.3s, transform 0.3s, color 0.3s;
+        }
+
+        /* Popular badge */
+        .svc-popular {
+            position: absolute; top: -1px; left: 2rem;
+            background: var(--red); color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.6rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.22rem 0.65rem; border-radius: 0 0 4px 4px;
+        }
+
+        /* ═══════════════════════════════════
+           03 — OUR WORK (placeholder)
+        ═══════════════════════════════════ */
+        #our-work {
+            background: var(--navy);
+            position: relative; overflow: hidden;
+            min-height: 500px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* Diagonal stripe texture */
+        #our-work::before {
+            content: ''; position: absolute; inset: 0; z-index: 0;
+            background-image: repeating-linear-gradient(
+                -45deg,
+                transparent, transparent 30px,
+                rgba(255,255,255,0.012) 30px, rgba(255,255,255,0.012) 31px
+            );
+        }
+        .work-placeholder {
+            position: relative; z-index: 1;
+            text-align: center; padding: 4rem 6%;
+        }
+        .work-placeholder-icon {
+            width: 80px; height: 80px; margin: 0 auto 2rem;
+            position: relative;
+        }
+        .work-placeholder-icon::before,
+        .work-placeholder-icon::after {
+            content: ''; position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
+            border-radius: 2px;
+        }
+        .work-placeholder-icon::before {
+            width: 60px; height: 60px;
+            border: 2px solid rgba(93,173,226,0.4);
+        }
+        .work-placeholder-icon::after {
+            width: 34px; height: 34px;
+            background: rgba(192,57,43,0.25);
+            border: 2px solid rgba(192,57,43,0.4);
+        }
+        .work-placeholder h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--white); margin-bottom: 1rem;
+        }
+        .work-placeholder p {
+            font-size: 0.95rem; color: rgba(255,255,255,0.5);
+            max-width: 400px; margin: 0 auto 2rem; line-height: 1.7;
+        }
+        .work-coming-soon {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            border: 1px solid rgba(93,173,226,0.35);
+            color: var(--blue); border-radius: 100px;
+            padding: 0.5rem 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.7rem;
+            letter-spacing: 0.16em; text-transform: uppercase;
+        }
+        .work-coming-soon::before {
+            content: ''; width: 6px; height: 6px;
+            background: var(--blue); border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* ═══════════════════════════════════
+           04 — WHY CHOOSE US
+        ═══════════════════════════════════ */
+        #about {
+            background: var(--grey);
+            position: relative; overflow: hidden;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem; align-items: center;
+        }
+
+        /* Image column */
+        .why-img-col { position: relative; }
+        .why-img-frame {
+            position: relative;
+            border-radius: 6px; overflow: hidden;
+        }
+        .why-img-frame img {
+            width: 100%; aspect-ratio: 4/3;
+            object-fit: cover; display: block;
+        }
+        /* Corner accents */
+        .why-img-frame::before {
+            content: ''; position: absolute;
+            top: -14px; left: -14px;
+            width: 72px; height: 72px;
+            border-top: 3px solid var(--red);
+            border-left: 3px solid var(--red);
+        }
+        .why-img-frame::after {
+            content: ''; position: absolute;
+            bottom: -14px; right: -14px;
+            width: 72px; height: 72px;
+            border-bottom: 3px solid var(--navy);
+            border-right: 3px solid var(--navy);
+        }
+        /* Satisfaction badge */
+        .why-badge {
+            position: absolute; bottom: -1.6rem; right: -1.6rem;
+            width: 120px; height: 120px; border-radius: 50%;
+            background: var(--red); color: var(--white);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; z-index: 2;
+            box-shadow: 0 12px 30px rgba(192,57,43,0.4);
+        }
+        .why-badge strong {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 1.6rem; line-height: 1; display: block;
+        }
+        .why-badge span { font-size: 0.6rem; opacity: 0.9; margin-top: 0.2rem; }
+
+        /* Content column */
+        .why-features { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .why-feat {
+            display: flex; gap: 1.1rem; align-items: flex-start;
+        }
+        .why-feat-icon {
+            width: 40px; min-width: 40px; height: 40px;
+            background: var(--white); border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(36,58,94,0.08);
+        }
+        .why-feat-icon svg { width: 18px; height: 18px; }
+        .why-feat h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.9rem;
+            color: var(--navy); margin-bottom: 0.25rem;
+        }
+        .why-feat p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+
+        /* ═══════════════════════════════════
+           05 — CONTACT
+        ═══════════════════════════════════ */
+        #contact { padding: 0; display: flex; min-height: 700px; }
+
+        .contact-left {
+            flex: 1; background: var(--navy);
+            padding: 5.5rem 5% 5.5rem 6%;
+            display: flex; flex-direction: column;
+            justify-content: center; position: relative; overflow: hidden;
+        }
+        .contact-left::before {
+            content: ''; position: absolute;
+            bottom: -80px; right: -80px;
+            width: 300px; height: 300px;
+            border: 50px solid rgba(192,57,43,0.1);
+            transform: rotate(45deg); pointer-events: none;
+        }
+        .contact-left-inner { position: relative; z-index: 1; max-width: 420px; }
+
+        .contact-left h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            color: var(--white); line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .contact-left h2 em { color: var(--red); font-style: normal; }
+        .contact-left > .contact-left-inner > p {
+            font-size: 0.92rem; color: rgba(255,255,255,0.6);
+            line-height: 1.75; margin-bottom: 2.5rem;
+        }
+
+        /* Contact details */
+        .contact-details { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.5rem; }
+        .contact-detail {
+            display: flex; align-items: center; gap: 0.85rem;
+            font-size: 0.88rem; color: rgba(255,255,255,0.75);
+        }
+        .contact-detail-icon {
+            width: 34px; height: 34px; min-width: 34px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px; display: flex;
+            align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05);
+        }
+        .contact-detail-icon svg { width: 15px; height: 15px; }
+
+        /* Mini testimonials */
+        .mini-testi { display: flex; flex-direction: column; gap: 1rem; margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        .mini-testi-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 5px; padding: 1rem 1.2rem;
+        }
+        .mini-testi-stars { color: #FBBC04; font-size: 0.82rem; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+        .mini-testi-text { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; font-style: italic; margin-bottom: 0.6rem; }
+        .mini-testi-author { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; color: rgba(255,255,255,0.9); letter-spacing: 0.05em; margin-bottom: 0.15rem; }
+        .mini-testi-meta { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-bottom: 0.5rem; }
+        .mini-testi-google { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; }
+        .mini-testi-google svg { flex-shrink: 0; }
+        .mini-testi-google span { font-size: 0.65rem; color: rgba(255,255,255,0.3); font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em; }
+
+        /* Right — form */
+        .contact-right {
+            flex: 1; background: var(--white);
+            padding: 5.5rem 6% 5.5rem 5%;
+            display: flex; align-items: center;
+        }
+        .contact-form-wrap { width: 100%; max-width: 480px; }
+        .contact-form-wrap h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; font-size: 1.4rem;
+            color: var(--navy); margin-bottom: 0.4rem;
+        }
+        .contact-form-wrap > p {
+            font-size: 0.88rem; color: var(--muted);
+            margin-bottom: 2rem; line-height: 1.6;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.68rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--navy); margin-bottom: 0.45rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 0.8rem 1rem;
+            border: 1.5px solid var(--grey-2); border-radius: 4px;
+            font-family: 'Open Sans', sans-serif; font-size: 0.88rem;
+            color: var(--text); background: var(--white);
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(36,58,94,0.07);
+        }
+        .form-group textarea { height: 95px; resize: vertical; }
+        .form-submit {
+            width: 100%; padding: 1rem;
+            background: var(--navy); color: var(--white);
+            border: none; border-radius: 4px; cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.78rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            margin-top: 0.3rem;
+        }
+        .form-submit:hover {
+            background: var(--red); transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(192,57,43,0.3);
+        }
+
+        /* ═══════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════ */
+        footer {
+            background: var(--navy-d); color: rgba(255,255,255,0.6);
+            padding: 4rem 6% 2rem;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr;
+            gap: 3rem; margin-bottom: 3rem;
+        }
+        .footer-brand img {
+            height: 72px; display: block; margin-bottom: 1rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 6px;
+            padding: 6px 10px;
+        }
+        .footer-brand p { font-size: 0.85rem; line-height: 1.7; max-width: 230px; }
+        .footer-col h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.68rem;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--white); margin-bottom: 1.1rem;
+        }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+        .footer-col a {
+            color: rgba(255,255,255,0.5); text-decoration: none;
+            font-size: 0.84rem; transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--blue); }
+        .footer-contact-row {
+            display: flex; gap: 0.6rem; align-items: flex-start;
+            font-size: 0.84rem; color: rgba(255,255,255,0.5);
+            margin-bottom: 0.55rem;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.8rem;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 1rem;
+            font-size: 0.78rem;
+        }
+        .footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .footer-legal a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
+        .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+        .footer-mark {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .footer-mark span {
+            width: 6px; height: 6px;
+            background: var(--red); transform: rotate(45deg); display: inline-block;
+        }
+
+        /* ═══════════════════════════════════
+           03 — PRICES
+        ═══════════════════════════════════ */
+        #prices {
+            background: var(--navy);
+            position: relative; overflow: hidden;
+        }
+
+        /* Subtle dot texture */
+        #prices::before {
+            content: ''; position: absolute; inset: 0; z-index: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+
+        .prices-inner { position: relative; z-index: 1; }
+
+        .prices-header {
+            display: flex; align-items: flex-end;
+            justify-content: space-between; gap: 2rem;
+            margin-bottom: 3.5rem; flex-wrap: wrap;
+        }
+
+        .price-note {
+            font-size: 0.82rem; color: rgba(255,255,255,0.4);
+            font-style: italic; margin-top: 0.4rem;
+        }
+
+        /* Grid */
+        .prices-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            align-items: stretch;
+        }
+
+        /* Card base */
+        .price-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2.2rem 1.8rem;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            transition: transform 0.3s, background 0.3s, border-color 0.3s;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.09);
+            border-color: rgba(255,255,255,0.18);
+        }
+        /* Top accent line */
+        .price-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s;
+        }
+        .price-card:hover::before { background: rgba(255,255,255,0.3); }
+
+        /* Featured card */
+        .price-card.featured {
+            background: var(--white);
+            border-color: var(--white);
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        }
+        .price-card.featured:hover { transform: translateY(-12px); }
+        .price-card.featured::before { background: var(--red); height: 4px; }
+        .price-card.featured .price-name    { color: var(--navy); }
+        .price-card.featured .price-amount  { color: var(--navy); }
+        .price-card.featured .price-period  { color: var(--muted); }
+        .price-card.featured .price-desc    { color: #555; }
+        .price-card.featured .price-include-item { color: #444; }
+        .price-card.featured .price-check   { background: var(--navy); }
+        .price-card.featured .price-divider { border-color: var(--grey-2); }
+        .price-card.featured .price-cta     { background: var(--navy); color: var(--white); }
+        .price-card.featured .price-cta:hover { background: var(--red); }
+
+        /* Featured badge */
+        .price-popular {
+            position: absolute; top: 0; right: 1.5rem;
+            background: var(--red); color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.6rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 0.25rem 0.7rem;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .price-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.78rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 1.2rem;
+        }
+
+        .price-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 2.6rem;
+            color: var(--white); line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+        .price-amount sup {
+            font-size: 1.2rem; font-weight: 700;
+            vertical-align: super; margin-right: 1px;
+        }
+
+        .price-period {
+            font-size: 0.8rem; color: rgba(255,255,255,0.45);
+            margin-bottom: 0.7rem;
+        }
+
+        .price-desc {
+            font-size: 0.83rem; color: rgba(255,255,255,0.55);
+            line-height: 1.65; margin-bottom: 1.5rem;
+        }
+
+        .price-divider {
+            border: none; border-top: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-includes {
+            list-style: none; display: flex;
+            flex-direction: column; gap: 0.65rem;
+            margin-bottom: 2rem; flex: 1;
+        }
+        .price-include-item {
+            display: flex; align-items: flex-start; gap: 0.7rem;
+            font-size: 0.83rem; color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+        }
+        .price-check {
+            width: 17px; min-width: 17px; height: 17px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 1px;
+        }
+        .price-check svg { width: 9px; height: 9px; }
+
+        .price-cta {
+            display: block; text-align: center;
+            padding: 0.85rem 1rem; border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.74rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            text-decoration: none; cursor: pointer; border: none;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .price-cta:hover {
+            background: var(--red); border-color: var(--red);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(192,57,43,0.35);
+        }
+
+        /* Disclaimer */
+        .prices-disclaimer {
+            text-align: center; margin-top: 2.5rem;
+            font-size: 0.8rem; color: rgba(255,255,255,0.3);
+            position: relative; z-index: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .prices-grid { grid-template-columns: repeat(2, 1fr); }
+            .price-card.featured { transform: translateY(0); }
+            .price-card.featured:hover { transform: translateY(-5px); }
+        }
+        @media (max-width: 600px) {
+            .prices-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ═══════════════════════════════════
+           ANIMATIONS
+        ═══════════════════════════════════ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* ═══════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .why-grid   { grid-template-columns: 1fr; gap: 4rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            #contact    { flex-direction: column; }
+            .contact-left { padding: 4rem 6%; }
+            .contact-right { padding: 4rem 6%; }
+            .contact-left-inner { max-width: 100%; }
+        }
+        @media (max-width: 768px) {
+            :root { --nav-h: 100px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero-body  { flex-direction: column; padding: 3rem 5% 2rem; }
+            .hero-visual { display: none; }
+            .svc-grid   { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .form-row   { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; }
+            .nav-logo img { height: 80px; }
+            nav.compact .nav-logo img { height: 48px; }
+            .mob-menu { top: var(--nav-h); }
+        }
+        @media (max-width: 480px) {
+            .sec { padding: 5rem 5%; }
+            .hero-h1 { font-size: 2.6rem; }
+            .hero-stats { flex-direction: column; gap: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+    <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#our-work">Our Work</a></li>
+        <li><a href="#about">Why Choose Us</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo">
+        <img src="StPauls-logo.png" alt="St Paul's Cleaning Services">
+    </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#prices">Prices</a>
+    <a href="#our-work">Our Work</a>
+    <a href="#about">Why Choose Us</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<!-- ═══ 01 — HOME / HERO ═══ -->
+<section id="hero">
+    <div class="hero-ring hero-ring-1"></div>
+    <div class="hero-ring hero-ring-2"></div>
+    <div class="hero-ring hero-ring-3"></div>
+
+    <!-- Floating background icons -->
+    <div class="hero-bg-icons" aria-hidden="true">
+
+        <!-- Spray bottle (detailed) top-left -->
+        <svg style="--op:0.07; left:6%; top:20%; width:44px; animation:hbiFloat 8s 0s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="8" width="16" height="12" rx="2"/>
+            <path d="M34 14h6l3-6"/>
+            <path d="M22 20v28a4 4 0 004 4h12a4 4 0 004-4V20"/>
+            <line x1="18" y1="30" x2="22" y2="30"/>
+            <line x1="18" y1="36" x2="22" y2="36"/>
+            <circle cx="40" cy="8" r="2" fill="white" opacity="0.5"/>
+        </svg>
+
+        <!-- Spray mist from bottle -->
+        <svg style="--op:0.055; left:11%; top:14%; width:28px; animation:hbiPulse 4s 0.3s infinite;" class="hbi" viewBox="0 0 32 32" fill="white">
+            <circle cx="6"  cy="6"  r="1.8"/>
+            <circle cx="14" cy="4"  r="1.4"/>
+            <circle cx="22" cy="7"  r="1.6"/>
+            <circle cx="10" cy="13" r="1.2"/>
+            <circle cx="18" cy="11" r="1.5"/>
+            <circle cx="26" cy="14" r="1.1"/>
+        </svg>
+
+        <!-- Dusting feather left-mid -->
+        <svg style="--op:0.065; left:4%; top:55%; width:42px; animation:hbiBob 9s 1s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 54 Q20 40 36 28 Q50 16 58 10"/>
+            <path d="M58 10 Q52 20 44 26 Q36 32 28 36"/>
+            <path d="M58 10 Q56 22 50 30 Q44 38 36 42"/>
+            <path d="M58 10 Q60 22 56 32 Q52 42 44 48"/>
+            <path d="M36 28 Q38 36 34 44 Q30 52 24 56"/>
+            <line x1="10" y1="54" x2="16" y2="48"/>
+        </svg>
+
+        <!-- 4-point sparkle large top-right area -->
+        <svg style="--op:0.08; left:72%; top:12%; width:32px; animation:hbiPulse 3.8s 0.6s infinite;" class="hbi" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"/>
+        </svg>
+
+        <!-- Small sparkle scattered -->
+        <svg style="--op:0.075; left:18%; top:8%; width:18px; animation:hbiPulse 4.5s 1.2s infinite;" class="hbi" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"/>
+        </svg>
+
+        <!-- Tiny sparkle bottom-left -->
+        <svg style="--op:0.07; left:28%; top:80%; width:14px; animation:hbiPulse 5s 2s infinite;" class="hbi" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"/>
+        </svg>
+
+        <!-- Sparkle right-bottom -->
+        <svg style="--op:0.07; left:80%; top:68%; width:16px; animation:hbiPulse 3.5s 0.9s infinite;" class="hbi" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"/>
+        </svg>
+
+        <!-- Soap bubble large right -->
+        <svg style="--op:0.05; left:86%; top:18%; width:54px; animation:hbiFloat 12s 0.4s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1">
+            <circle cx="32" cy="32" r="28"/>
+            <ellipse cx="22" cy="20" rx="6" ry="4" fill="white" opacity="0.12" transform="rotate(-30 22 20)"/>
+        </svg>
+
+        <!-- Soap bubble medium -->
+        <svg style="--op:0.055; left:78%; top:38%; width:34px; animation:hbiBob 7s 2.2s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.2">
+            <circle cx="32" cy="32" r="28"/>
+            <ellipse cx="22" cy="20" rx="5" ry="3" fill="white" opacity="0.12" transform="rotate(-30 22 20)"/>
+        </svg>
+
+        <!-- Soap bubble small cluster -->
+        <svg style="--op:0.05; left:60%; top:22%; width:46px; animation:hbiFloat 14s 1.5s infinite;" class="hbi" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <circle cx="24" cy="48" r="18"/>
+            <circle cx="48" cy="36" r="13"/>
+            <circle cx="38" cy="60" r="9"/>
+            <ellipse cx="17" cy="38" rx="4" ry="2.5" fill="white" opacity="0.1" transform="rotate(-30 17 38)"/>
+        </svg>
+
+        <!-- Droplet top-centre -->
+        <svg style="--op:0.06; left:44%; top:7%; width:26px; animation:hbiBob 8s 0.7s infinite;" class="hbi" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+            <line x1="9" y1="14" x2="9" y2="14" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+
+        <!-- Droplet bottom-right -->
+        <svg style="--op:0.055; left:90%; top:72%; width:20px; animation:hbiBob 9.5s 3s infinite;" class="hbi" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+        </svg>
+
+        <!-- Sponge / scrub pad bottom centre-left -->
+        <svg style="--op:0.055; left:38%; top:82%; width:38px; animation:hbiFloat 10s 1.8s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="20" width="48" height="28" rx="6"/>
+            <rect x="16" y="12" width="32" height="12" rx="4"/>
+            <line x1="20" y1="32" x2="20" y2="40"/>
+            <line x1="28" y1="32" x2="28" y2="40"/>
+            <line x1="36" y1="32" x2="36" y2="40"/>
+            <line x1="44" y1="32" x2="44" y2="40"/>
+        </svg>
+
+        <!-- Cleaning cloth / wipe bottom-right area -->
+        <svg style="--op:0.05; left:64%; top:78%; width:36px; animation:hbiBob 11s 0.5s infinite;" class="hbi" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 44 Q16 28 32 24 Q48 20 56 28 Q60 36 52 44 Q40 56 20 52 Z"/>
+            <path d="M20 36 Q28 30 40 32"/>
+            <path d="M16 44 Q26 40 38 42"/>
+        </svg>
+    </div>
+
+    <div class="hero-body">
+        <div class="hero-text">
+            <div class="hero-eyebrow">Professional Cleaning Services</div>
+            <h1 class="hero-h1">
+                Epsom's Favourite
+                <span>Cleaning Service.</span>
+            </h1>
+            <p class="hero-desc">
+                Serving Epsom, Ewell, Leatherhead, Cheam, Sutton, Banstead and across Surrey — St Paul's Cleaning Services specialises in <strong style="color:rgba(255,255,255,0.9);font-weight:600;">professional oven deep cleaning</strong>, <strong style="color:rgba(255,255,255,0.9);font-weight:600;">carpet cleaning</strong>, <strong style="color:rgba(255,255,255,0.9);font-weight:600;">end of tenancy cleans</strong>, regular deep cleans, and <strong style="color:rgba(255,255,255,0.9);font-weight:600;">weekly &amp; bi-weekly house cleaning</strong>. Fully insured, DBS checked, and trusted by hundreds of homes within 15 miles of Epsom.
+            </p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-red">Get a Free Quote</a>
+                <a href="#services" class="btn btn-outline">Our Services</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <span class="h-stat-num" data-count="500">0<em>+</em></span>
+                    <span class="h-stat-lbl">Happy Clients</span>
+                </div>
+                <div>
+                    <span class="h-stat-num">5<em>★</em></span>
+                    <span class="h-stat-lbl">Average Rating</span>
+                </div>
+                <div>
+                    <span class="h-stat-num" data-count="20">0<em>+</em></span>
+                    <span class="h-stat-lbl">Years Experience</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══ 02 — SERVICES ═══ -->
+<section id="services" class="sec">
+    <div class="sec-narrow" style="position:relative;">
+        <div class="services-header">
+            <div>
+                <div class="s-label">What We Offer</div>
+                <h2 class="s-title">Services Tailored<br>to Your Home</h2>
+            </div>
+            <p class="s-sub" style="margin-top:0;">
+                Professional, reliable, and thorough — every visit. Choose the service that fits your home and lifestyle.
+            </p>
+        </div>
+
+        <div class="svc-grid">
+            <!-- Regular -->
+            <a href="regular-cleaning.html" class="svc-card reveal" style="text-decoration:none;display:block;">
+                <div class="svc-card-top">
+                    <span class="svc-num">01</span>
+                    <div class="svc-icon-wrap">
+                        <div class="svc-icon-bg"></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="svc-name">Regular House Cleaning</div>
+                <p class="svc-desc">Reliable, recurring cleans to keep your home consistently fresh. Weekly, fortnightly, or monthly — we work around your schedule.</p>
+                <span class="svc-arrow">Learn more →</span>
+            </a>
+
+            <!-- Deep Clean — popular -->
+            <a href="deep-clean.html" class="svc-card reveal" style="animation-delay:0.1s;text-decoration:none;display:block;">
+                <div class="svc-popular">Most Popular</div>
+                <div class="svc-card-top">
+                    <span class="svc-num">02</span>
+                    <div class="svc-icon-wrap">
+                        <div class="svc-icon-bg"></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="svc-name">Deep Clean &amp; End of Tenancy</div>
+                <p class="svc-desc">A comprehensive, top-to-bottom clean. Ideal for moving in, moving out, or a thorough seasonal reset — deposit-back guaranteed.</p>
+                <span class="svc-arrow">Learn more →</span>
+            </a>
+
+            <!-- Oven -->
+            <a href="oven-cleaning.html" class="svc-card reveal" style="animation-delay:0.15s;text-decoration:none;display:block;">
+                <div class="svc-card-top">
+                    <span class="svc-num">03</span>
+                    <div class="svc-icon-wrap">
+                        <div class="svc-icon-bg"></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <rect x="7" y="9" width="10" height="7" rx="1"/>
+                            <line x1="6" y1="7" x2="6.01" y2="7"/>
+                            <line x1="10" y1="7" x2="10.01" y2="7"/>
+                            <line x1="14" y1="7" x2="14.01" y2="7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="svc-name">Oven &amp; BBQ Cleaning</div>
+                <p class="svc-desc">Specialist degreasing of ovens, hobs, and extractors. Restore them to as-new condition using professional-grade, safe products.</p>
+                <span class="svc-arrow">Learn more →</span>
+            </a>
+
+            <!-- Carpet -->
+            <a href="carpet-cleaning.html" class="svc-card reveal" style="animation-delay:0.2s;text-decoration:none;display:block;">
+                <div class="svc-card-top">
+                    <span class="svc-num">04</span>
+                    <div class="svc-icon-wrap">
+                        <div class="svc-icon-bg"></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="svc-name">Carpet Cleaning</div>
+                <p class="svc-desc">Hot water extraction carpet cleaning to remove deep-set dirt, stains, and allergens. Fresh, revitalised carpets every time.</p>
+                <span class="svc-arrow">Learn more →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ 03 — PRICES ═══ -->
+<section id="prices" class="sec">
+    <div class="sec-narrow prices-inner">
+        <div class="prices-header">
+            <div>
+                <div class="s-label light">Transparent Pricing</div>
+                <h2 class="s-title light">Simple, Honest<br><em>Prices</em></h2>
+                <p class="price-note">All prices are starting rates. Final quote based on property size &amp; requirements.</p>
+            </div>
+            <p class="s-sub light" style="margin-top:0;">
+                No hidden fees, no surprises — every price is agreed upfront before we begin.
+            </p>
+        </div>
+
+        <div class="prices-grid">
+
+            <!-- Regular Cleaning -->
+            <div class="price-card reveal">
+                <div class="price-name">Regular Clean</div>
+                <div class="price-amount"><sup>£</sup>20</div>
+                <div class="price-period">per hour</div>
+                <p class="price-desc">Ongoing scheduled cleans to keep your home consistently spotless.</p>
+                <hr class="price-divider">
+                <ul class="price-includes">
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        All main living areas
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Kitchen &amp; bathrooms
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Vacuuming &amp; mopping
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Weekly, fortnightly or monthly
+                    </li>
+                </ul>
+                <a href="#contact" class="price-cta">Get a Quote</a>
+            </div>
+
+            <!-- Deep Clean — featured -->
+            <div class="price-card featured reveal" style="animation-delay:0.08s;">
+                <div class="price-popular">Most Popular</div>
+                <div class="price-name">Deep Clean</div>
+                <div class="price-amount"><sup>£</sup>200</div>
+                <div class="price-period">from, 2-bed property</div>
+                <p class="price-desc">A thorough top-to-bottom clean — perfect for end of tenancy or seasonal refresh.</p>
+                <hr class="price-divider">
+                <ul class="price-includes">
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Everything in regular clean
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Inside cupboards &amp; drawers
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Skirting boards &amp; fixtures
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Deposit-back guarantee
+                    </li>
+                </ul>
+                <a href="#contact" class="price-cta">Get a Quote</a>
+            </div>
+
+            <!-- Oven Cleaning -->
+            <div class="price-card reveal" style="animation-delay:0.16s;">
+                <div class="price-name">Oven &amp; BBQ</div>
+                <div class="price-amount"><sup>£</sup>75</div>
+                <div class="price-period">from, single oven</div>
+                <p class="price-desc">Professional degreasing — restore your oven to as-new condition.</p>
+                <hr class="price-divider">
+                <ul class="price-includes">
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Interior &amp; exterior clean
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Racks, trays &amp; glass door
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Hob &amp; extractor available
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Safe, fume-free products
+                    </li>
+                </ul>
+                <a href="#contact" class="price-cta">Get a Quote</a>
+            </div>
+
+            <!-- Carpet Cleaning -->
+            <div class="price-card reveal" style="animation-delay:0.24s;">
+                <div class="price-name">Carpet Clean</div>
+                <div class="price-amount"><sup>£</sup>100</div>
+                <div class="price-period">from, 2 rooms</div>
+                <p class="price-desc">Hot water extraction to remove deep-set dirt, stains, and allergens.</p>
+                <hr class="price-divider">
+                <ul class="price-includes">
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Hot water extraction
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Stain pre-treatment
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Allergen removal
+                    </li>
+                    <li class="price-include-item">
+                        <span class="price-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Stairs &amp; rugs available
+                    </li>
+                </ul>
+                <a href="#contact" class="price-cta">Get a Quote</a>
+            </div>
+
+        </div>
+
+        <p class="prices-disclaimer">
+            Prices shown are starting rates for guidance only. Contact us for an accurate quote tailored to your property and requirements.
+        </p>
+    </div>
+</section>
+
+<!-- ═══ 04 — OUR WORK ═══ -->
+<section id="our-work">
+    <div class="work-placeholder reveal">
+        <div class="work-placeholder-icon"></div>
+        <h2>Our Work</h2>
+        <p>A showcase of our results is coming soon. In the meantime, get in touch to see what we can do for your home.</p>
+        <span class="work-coming-soon">Gallery Coming Soon</span>
+    </div>
+</section>
+
+<!-- ═══ 05 — WHY CHOOSE US ═══ -->
+<section id="about" class="sec">
+    <div class="sec-narrow" style="position:relative;">
+        <div class="s-num">05</div>
+
+        <div class="why-grid">
+            <!-- Image -->
+            <div class="why-img-col reveal">
+                <div class="why-img-frame">
+                    <img src="carpet-clean.jpeg" alt="Professional carpet cleaning service">
+                </div>
+                <div class="why-badge">
+                    <strong>100%</strong>
+                    <span>Satisfaction<br>Guaranteed</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="reveal">
+                <div class="s-label">Why Choose Us</div>
+                <h2 class="s-title">Cleaning You Can<br>Truly Trust</h2>
+                <div class="why-features">
+                    <div class="why-feat">
+                        <div class="why-feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Fully Insured &amp; DBS Checked</h4>
+                            <p>Every cleaner is background-checked, fully insured, and trained to the highest professional standards.</p>
+                        </div>
+                    </div>
+                    <div class="why-feat">
+                        <div class="why-feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
+                                <path d="M12 8v4l3 3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Flexible Scheduling</h4>
+                            <p>Mornings, evenings, weekends — we work around your life to cause minimum disruption.</p>
+                        </div>
+                    </div>
+                    <div class="why-feat">
+                        <div class="why-feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Eco-Friendly Products</h4>
+                            <p>Environmentally responsible products — tough on grime, completely safe for your family and pets.</p>
+                        </div>
+                    </div>
+                    <div class="why-feat">
+                        <div class="why-feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Transparent, Fixed Pricing</h4>
+                            <p>No hidden fees, no surprises. Every quote is fixed and agreed upfront — you only pay what you're quoted.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ 05 — CONTACT ═══ -->
+<section id="contact">
+    <!-- Left — navy info panel -->
+    <div class="contact-left reveal">
+        <div class="contact-left-inner">
+            <div class="s-label light">Get in Touch</div>
+            <h2>Ready for a<br><em>Spotless</em> Home?</h2>
+            <p>Get a free, no-obligation quote today. We'll respond within 24 hours to discuss your requirements and find the perfect service for you.</p>
+
+            <div class="contact-details">
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+                        </svg>
+                    </div>
+                    07700 000000
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    info@stpaulscleaning.co.uk
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    Epsom, Surrey &amp; Surrounding Areas
+                </div>
+            </div>
+
+            <div class="mini-testi">
+                <div class="mini-testi-item">
+                    <div class="mini-testi-stars">★★★★★</div>
+                    <p class="mini-testi-text">"Andreza and her team have been cleaning for us for 18 years. As well as doing a fantastic job with cleaning our house and doing our ironing, Andreza and everybody in her team have been reliable, honest and totally trustworthy. She's a great communicator — I have recommended Andreza and her team to several friends and neighbours and have no hesitation in recommending her to anybody."</p>
+                    <div class="mini-testi-author">Louisa Winter</div>
+                    <div class="mini-testi-meta">7 reviews · a year ago</div>
+                    <div class="mini-testi-google">
+                        <svg width="12" height="12" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        <span>Posted on Google</span>
+                    </div>
+                </div>
+                <div class="mini-testi-item">
+                    <div class="mini-testi-stars">★★★★★</div>
+                    <p class="mini-testi-text">"Andreza and team are brilliant — so efficient and the house is always so lovely and clean."</p>
+                    <div class="mini-testi-author">Leah Mursaleen</div>
+                    <div class="mini-testi-meta">3 reviews · a year ago</div>
+                    <div class="mini-testi-google">
+                        <svg width="12" height="12" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        <span>Posted on Google</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right — form -->
+    <div class="contact-right reveal">
+        <div class="contact-form-wrap">
+            <h3>Request a Free Quote</h3>
+            <p>Fill in the form below and we'll be in touch within 24 hours.</p>
+            <form id="quoteForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="Jane" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Smith" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="jane@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="07700 000000">
+                </div>
+                <div class="form-group">
+                    <label>Service Required</label>
+                    <select>
+                        <option value="">Select a service…</option>
+                        <option>Regular House Cleaning</option>
+                        <option>Deep Cleaning</option>
+                        <option>End of Tenancy Cleaning</option>
+                        <option>Oven &amp; BBQ Cleaning</option>
+                        <option>Carpet Cleaning</option>
+                        <option>Multiple Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Additional Details</label>
+                    <textarea placeholder="Property size, specific requirements, preferred dates…"></textarea>
+                </div>
+                <button type="submit" class="form-submit" id="submitBtn">
+                    Request a Free Quote &rarr;
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="StPauls-logo.png" alt="St Paul's Cleaning Services">
+            <p>Professional cleaning services delivered with care, consistency, and an uncompromising attention to detail. Your satisfaction is always guaranteed.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="regular-cleaning.html">Regular Cleaning</a></li>
+                <li><a href="deep-clean.html">Deep Cleaning</a></li>
+                <li><a href="deep-clean.html">End of Tenancy</a></li>
+                <li><a href="oven-cleaning.html">Oven &amp; BBQ</a></li>
+                <li><a href="carpet-cleaning.html">Carpet Cleaning</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#our-work">Our Work</a></li>
+                <li><a href="#about">Why Choose Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                <span>07700 000000</span>
+            </div>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>info@stpaulscleaning.co.uk</span>
+            </div>
+            <div class="footer-contact-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Epsom, Surrey &amp; Surrounding Areas</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 St Paul's Cleaning Services. All rights reserved.</span>
+        <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="footer-mark">
+            <span></span>
+            <small>Professional. Reliable. Spotless.</small>
+            <span></span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ── Nav compact on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('compact', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobMenu   = document.getElementById('mobMenu');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobMenu.classList.toggle('open');
+        if (mobMenu.classList.contains('open')) {
+            mobMenu.style.paddingTop = navbar.offsetHeight + 'px';
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    }));
+
+    // ── Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('in'), i * 90);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Stat counter animation
+    function animateCount(el, target, duration = 1200) {
+        const start = performance.now();
+        const update = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.firstChild.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    }
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('[data-count]').forEach(el => {
+                    animateCount(el, parseInt(el.dataset.count));
+                });
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) statsObserver.observe(statsEl);
+
+    // ── Form submit
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = '✓ Request Sent!';
+        btn.style.background = '#27ae60';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.textContent = 'Request a Free Quote →';
+            btn.style.background = '';
+            btn.disabled = false;
+            e.target.reset();
+        }, 3500);
+    }
+
+    // ── Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                const offset = navbar.offsetHeight;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
