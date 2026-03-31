@@ -91,6 +91,9 @@
         .include-icon svg { width: 20px; height: 20px; }
         .include-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.6rem; }
         .include-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+        .include-card.addon { border-style: dashed; border-color: var(--red); background: rgba(192,57,43,0.03); }
+        .include-card.addon:hover { border-color: var(--red); }
+        .addon-badge { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; background: var(--red); color: var(--white); padding: 0.2rem 0.55rem; border-radius: 3px; margin-bottom: 0.85rem; }
 
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
         .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 3rem; margin-top: 2rem; }
@@ -132,9 +135,26 @@
         .footer-mark { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3); }
         .footer-mark span { width: 6px; height: 6px; background: var(--red); transform: rotate(45deg); display: inline-block; }
 
+        /* FULL PRICE GUIDE */
+        .price-guide-category { margin-top: 3rem; }
+        .pgc-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: var(--navy); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--grey-2); }
+        .pgc-title::before { content: ''; width: 4px; height: 22px; background: var(--red); border-radius: 2px; flex-shrink: 0; }
+        .pgc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+        .pg-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(36,58,94,0.06); border: 1.5px solid var(--grey-2); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+        .pg-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(36,58,94,0.12); border-color: var(--navy); }
+        .pg-card-img { width: 100%; height: 200px; object-fit: contain; display: block; background: var(--grey); padding: 0.75rem; }
+        .pg-card-body { padding: 1rem 1.1rem 1.25rem; }
+        .pg-card-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.35; }
+        .pg-card-price { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.75rem; color: var(--red); line-height: 1; }
+        .pg-card-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; }
+        .pg-addon-strip { margin-top: 2.5rem; background: var(--navy); border-radius: 8px; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .pg-addon-strip-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--white); margin-bottom: 0.25rem; }
+        .pg-addon-strip-note { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+        @media (max-width: 1100px) { .pgc-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } .includes-grid { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; gap: 3rem; } .pricing-row { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 768px) { :root { --nav-h: 100px; } .nav-links { display: none; } .hamburger { display: flex; } .footer-grid { grid-template-columns: 1fr; } .includes-grid { grid-template-columns: 1fr; } .checklist { grid-template-columns: 1fr; } .pricing-row { grid-template-columns: 1fr; } .nav-logo img { height: 80px; } nav.compact .nav-logo img { height: 48px; } }
-        @media (max-width: 480px) { .sec { padding: 5rem 5%; } }
+        @media (max-width: 768px) { :root { --nav-h: 100px; } .nav-links { display: none; } .hamburger { display: flex; } .footer-grid { grid-template-columns: 1fr; } .includes-grid { grid-template-columns: 1fr; } .checklist { grid-template-columns: 1fr; } .pricing-row { grid-template-columns: 1fr; } .nav-logo img { height: 80px; } nav.compact .nav-logo img { height: 48px; } .pgc-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .sec { padding: 5rem 5%; } .pgc-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -176,29 +196,136 @@
     </div>
 </section>
 
-<!-- PRICING ROW -->
-<section class="sec" style="background: var(--grey); padding: 4rem 6%;">
+<!-- PRICE GUIDE -->
+<section class="sec" style="background: var(--grey); padding: 5rem 6%;">
     <div class="sec-narrow">
-        <div class="s-label">Pricing</div>
-        <h2 class="s-title">Simple, Transparent<br><em>Oven Clean Prices</em></h2>
-        <div class="pricing-row" style="margin-top: 2.5rem;">
-            <div class="price-block reveal">
-                <div class="price-block-name">Single Oven</div>
-                <div class="price-block-amount"><sup>£</sup>75</div>
-                <div class="price-block-from">from / includes all components</div>
-            </div>
-            <div class="price-block featured reveal">
-                <div class="price-block-name">Double Oven</div>
-                <div class="price-block-amount"><sup>£</sup>110</div>
-                <div class="price-block-from">from / most popular</div>
-            </div>
-            <div class="price-block reveal">
-                <div class="price-block-name">Range Cooker</div>
-                <div class="price-block-amount"><sup>£</sup>130</div>
-                <div class="price-block-from">from / full range clean</div>
+        <div class="s-label">Full Price Guide</div>
+        <h2 class="s-title">Transparent Pricing for<br><em>Every Appliance</em></h2>
+        <p class="s-sub">All prices include labour, professional cleaning products, dip-tank treatment for removable parts, and full reassembly. Final price confirmed before work begins — no hidden extras.</p>
+
+        <!-- Standard Ovens -->
+        <div class="price-guide-category">
+            <div class="pgc-title">Standard Ovens</div>
+            <div class="pgc-grid">
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="single-oven.png" alt="Single Oven">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Single Oven + Hob + Extractor</div>
+                        <div class="pg-card-price">£75</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="double-oven.png" alt="Double Oven">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Double Oven + Hob + Extractor</div>
+                        <div class="pg-card-price">£105</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="single-wide.png" alt="Single Wide Oven">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Single Wide Oven + Hob + Extractor</div>
+                        <div class="pg-card-price">£115</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <p style="font-size: 0.82rem; color: var(--muted); margin-top: 1.5rem; text-align: center;">BBQ cleaning from £50. Extractor fan + filter from £25 add-on. Final price confirmed on booking.</p>
+
+        <!-- Range Cookers -->
+        <div class="price-guide-category">
+            <div class="pgc-title">Range Cookers</div>
+            <div class="pgc-grid">
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="range-single.png" alt="Range Single Wide Oven">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Range Single Wide Oven</div>
+                        <div class="pg-card-price">£75</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="master-range.png" alt="Master Range">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Master Range (90cm–110cm)</div>
+                        <div class="pg-card-price">£105</div>
+                        <div class="pg-card-note">Burners not included</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="range-cook.png" alt="Range Cook + Hob or Extractor">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Range Cook + Hob or Extractor</div>
+                        <div class="pg-card-price">£135</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGA -->
+        <div class="price-guide-category">
+            <div class="pgc-title">AGA Cookers</div>
+            <div class="pgc-grid">
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="aga-2.png" alt="AGA with 2 Ovens">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">AGA with 2 Ovens</div>
+                        <div class="pg-card-price">£95</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="aga-4.png" alt="AGA with 4 Ovens">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">AGA with 4 Ovens</div>
+                        <div class="pg-card-price">£135</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="aga-side.png" alt="AGA Side Module">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">AGA Side Module</div>
+                        <div class="pg-card-price">£75</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BBQ -->
+        <div class="price-guide-category">
+            <div class="pgc-title">BBQ Cleaning</div>
+            <div class="pgc-grid">
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="small-bbq.png" alt="Small Round BBQ">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Small Round BBQ</div>
+                        <div class="pg-card-price">£65</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="medium-bbq.png" alt="Medium BBQ">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Medium BBQ</div>
+                        <div class="pg-card-price">£85</div>
+                        <div class="pg-card-note">Up to 3 burners</div>
+                    </div>
+                </div>
+                <div class="pg-card reveal">
+                    <img class="pg-card-img" src="large-bbq.png" alt="Large BBQ">
+                    <div class="pg-card-body">
+                        <div class="pg-card-name">Large BBQ</div>
+                        <div class="pg-card-price">£105</div>
+                        <div class="pg-card-note">4 to 6 burners</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add-on strip -->
+        <div class="pg-addon-strip">
+            <div>
+                <div class="pg-addon-strip-label">Add-On: Range Hood or Hob Cleaning &nbsp;+£22</div>
+                <div class="pg-addon-strip-note">Available for range cookers only (all sizes). Final price confirmed on booking.</div>
+            </div>
+            <a href="contact.html" class="btn btn-white" style="font-size: 0.78rem; white-space: nowrap;">Book &amp; Get a Quote</a>
+        </div>
     </div>
 </section>
 
@@ -238,6 +365,12 @@
                 <div class="include-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#243A5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                 <h3>Safe Products</h3>
                 <p>All products used are bio-degradable, non-caustic and food-safe. No harsh chemical smells — your oven is ready to use the same day.</p>
+            </div>
+            <div class="include-card addon reveal">
+                <div class="addon-badge">Add-On</div>
+                <div class="include-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                <h3 style="color:var(--red);">Range Hood or Hob &nbsp;<span style="font-weight:900;">+£22</span></h3>
+                <p>Available for range cookers only (all sizes). Hood or hob cleaning is not included in the standard range price — add it for just £22. Covers filter, casing and accessible ductwork.</p>
             </div>
         </div>
     </div>
