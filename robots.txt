@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://stpaulscleaning.co.uk/sitemap.xml
+
+# Block any private or admin paths if added in future
+Disallow: /admin/
+Disallow: /private/
