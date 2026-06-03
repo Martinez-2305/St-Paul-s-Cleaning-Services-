@@ -2010,24 +2010,24 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" placeholder="Your first name" required>
+                        <input type="text" name="firstName" placeholder="Your first name" required>
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" placeholder="Your surname" required>
+                        <input type="text" name="lastName" placeholder="Your surname" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="Your email address" required>
+                    <input type="email" name="email" placeholder="Your email address" required>
                 </div>
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" placeholder="Your phone number">
+                    <input type="tel" name="phone" placeholder="Your phone number">
                 </div>
                 <div class="form-group">
                     <label>Service Required</label>
-                    <select>
+                    <select name="service">
                         <option value="">Select a service…</option>
                         <option>Regular House Cleaning</option>
                         <option>Deep Cleaning</option>
@@ -2039,7 +2039,7 @@
                 </div>
                 <div class="form-group">
                     <label>Additional Details</label>
-                    <textarea placeholder="Property size, specific requirements, preferred dates…"></textarea>
+                    <textarea name="message" placeholder="Property size, specific requirements, preferred dates…"></textarea>
                 </div>
                 <button type="submit" class="form-submit" id="submitBtn">
                     Request a Free Quote &rarr;
@@ -2177,18 +2177,41 @@
     if (statsEl) statsObserver.observe(statsEl);
 
     // ── Form submit
-    function handleSubmit(e) {
+    const FUNCTION_URL = 'https://vuuuoyrecxpmgendowhg.supabase.co/functions/v1/send-quote-request';
+
+    async function handleSubmit(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.textContent = '✓ Request Sent!';
-        btn.style.background = '#27ae60';
+        const form = e.target;
+        const data = Object.fromEntries(new FormData(form));
+
+        btn.textContent = 'Sending…';
         btn.disabled = true;
-        setTimeout(() => {
-            btn.textContent = 'Request a Free Quote →';
-            btn.style.background = '';
-            btn.disabled = false;
-            e.target.reset();
-        }, 3500);
+
+        try {
+            const res = await fetch(FUNCTION_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (!res.ok) throw new Error('Server error');
+            btn.textContent = '✓ Request Sent!';
+            btn.style.background = '#27ae60';
+            form.reset();
+            setTimeout(() => {
+                btn.textContent = 'Request a Free Quote →';
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 4000);
+        } catch (err) {
+            btn.textContent = 'Something went wrong — try again';
+            btn.style.background = '#c0392b';
+            setTimeout(() => {
+                btn.textContent = 'Request a Free Quote →';
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 4000);
+        }
     }
 
     // ── Smooth scroll
