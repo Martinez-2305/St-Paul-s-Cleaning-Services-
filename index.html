@@ -2006,7 +2006,7 @@
         <div class="contact-form-wrap">
             <h3>Request a Free Quote</h3>
             <p>Fill in the form below and we'll be in touch within 24 hours.</p>
-            <form id="quoteForm" onsubmit="handleSubmit(event)">
+            <form id="quoteForm" action="https://formspree.io/f/xlgkpzbw" method="POST" onsubmit="handleSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>First Name</label>
@@ -2177,22 +2177,19 @@
     if (statsEl) statsObserver.observe(statsEl);
 
     // ── Form submit
-    const FUNCTION_URL = 'https://vuuuoyrecxpmgendowhg.supabase.co/functions/v1/send-quote-request';
-
     async function handleSubmit(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
         const form = e.target;
-        const data = Object.fromEntries(new FormData(form));
 
         btn.textContent = 'Sending…';
         btn.disabled = true;
 
         try {
-            const res = await fetch(FUNCTION_URL, {
+            const res = await fetch(form.action, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' },
             });
             if (!res.ok) throw new Error('Server error');
             btn.textContent = '✓ Request Sent!';
