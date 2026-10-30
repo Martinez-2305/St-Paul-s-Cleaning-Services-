@@ -13,7 +13,7 @@ The real domain is **https://www.stpaulscleaningservices.co.uk**. Every page use
 
 ## Do now, after deploying
 
-1. **Fix the email address.** Every page shows `info@stpaulscleaning.co.uk`. That domain doesn't exist, so **emails to it cannot arrive**. The real domain has email forwarding set up (Namecheap). Confirm which address works (for example `info@stpaulscleaningservices.co.uk`), then replace it site-wide, including in the schema.
+1. ~~Fix the email address.~~ Done: the site now uses `contact@stpaulscleaningservices.co.uk` (Hostinger Email). Use the same address on the Google Business Profile.
 2. In Google Search Console, **Request Indexing on every page**: `/`, `/areas-epsom.html`, `/regular-cleaning.html`, `/deep-clean.html`, `/carpet-cleaning.html`, `/oven-cleaning.html`, `/contact.html`, `/privacy-policy.html`. They were blocked by the canonical, so they should index quickly now.
 3. **Resubmit the sitemap** in GSC: `https://www.stpaulscleaningservices.co.uk/sitemap.xml` (it now uses the www host throughout).
 4. In a week or two, check GSC → Pages. The "Alternate page with proper canonical tag" count should fall to zero.

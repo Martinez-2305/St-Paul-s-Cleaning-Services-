@@ -44,6 +44,14 @@ Never edit files directly in File Manager. Hostinger runs `git pull`, so local e
 
 The domain no longer points to Vercel. In the Vercel dashboard, remove `stpaulscleaningservices.co.uk` and `www` from the project's Domains. Then disconnect the Git repo or delete the project so it stops building on every push.
 
-## Email is unaffected
+## DNS and email
 
-DNS is still managed at Namecheap (`dns1/dns2.registrar-servers.com`), and the mail forwarding (MX) records are unchanged. Only the A record moved to Hostinger (`145.14.152.16`), and `www` is a CNAME to the bare domain.
+DNS is managed at Namecheap (`dns1/dns2.registrar-servers.com`), not Hostinger. The A record points to Hostinger (`145.14.152.16`), and `www` is a CNAME to the bare domain.
+
+The site email is `contact@stpaulscleaningservices.co.uk` on Hostinger Email. For it to receive mail, the domain's mail records at Namecheap must point to Hostinger, not to Namecheap's email forwarding. Copy the exact values from hPanel → Emails → the domain → **DNS settings**. They are normally:
+
+- Namecheap → Domain List → Manage → **Advanced DNS** → Mail Settings: switch from "Email Forwarding" to **Custom MX**
+- MX `@` → `mx1.hostinger.com` (priority 5) and `mx2.hostinger.com` (priority 10)
+- TXT `@` (SPF) → `v=spf1 include:_spf.mail.hostinger.com ~all`. Replace the old `spf.efwd.registrar-servers.com` record; keep only one SPF record.
+- DKIM: the three CNAME records `hostingermail-a/b/c._domainkey` shown in hPanel
+- TXT `_dmarc` → `v=DMARC1; p=none`
