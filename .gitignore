@@ -2,6 +2,7 @@
 .claude/
 .vscode/
 .playwright-mcp/
+.impeccable/
 .DS_Store
 Thumbs.db
 

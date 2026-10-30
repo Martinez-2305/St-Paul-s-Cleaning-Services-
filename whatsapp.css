@@ -1,0 +1,58 @@
+/* WhatsApp contact links + sticky mobile button.
+   Number: +44 7930 405972. Shared by every page. */
+
+:root {
+    --wa-green:   #0F7A4A;  /* darker WhatsApp green: white text passes AA (5.4:1) */
+    --wa-green-d: #0B6640;
+    --wa-brand:   #25D366;  /* official WhatsApp green, used for the icon only */
+}
+
+.wa-icon { width: 1.15em; height: 1.15em; flex-shrink: 0; fill: currentColor; }
+
+/* "WhatsApp us" row in the dark contact panels */
+a.contact-detail { color: rgba(255,255,255,0.75); text-decoration: none; }
+.contact-detail-row a.wa-link { text-decoration: none; }
+a.contact-detail:hover, a.contact-detail:focus-visible,
+.contact-detail-row a.wa-link:hover, .contact-detail-row a.wa-link:focus-visible { color: var(--white, #fff); }
+a.contact-detail .wa-icon, .contact-detail-row .wa-icon { color: var(--wa-brand); width: 16px; height: 16px; }
+.contact-detail-row .wa-icon { width: 18px; height: 18px; }
+
+/* Button inside the red call-to-action banners */
+.wa-btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn.btn-wa { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.btn.btn-wa .wa-icon { width: 1.25em; height: 1.25em; }
+
+/* Sticky button: phones only, slides up once the visitor scrolls past the top of the page */
+.wa-sticky { display: none; }
+
+@media (max-width: 768px) {
+    .wa-sticky {
+        display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+        position: fixed; z-index: 250; /* below the open mobile menu (299) */
+        left: 16px; right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        min-height: 54px; padding: 0 1.25rem;
+        background: var(--wa-green); color: #fff;
+        font-family: 'Montserrat', sans-serif; font-weight: 800;
+        font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+        text-decoration: none; border-radius: 3px;
+        box-shadow: 0 10px 28px rgba(15, 122, 74, 0.35), 0 2px 6px rgba(0, 0, 0, 0.12);
+        transform: translateY(calc(100% + 32px));
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.35s;
+    }
+    .wa-sticky .wa-icon { width: 22px; height: 22px; }
+    .wa-sticky.is-visible {
+        transform: translateY(0); visibility: visible;
+        transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+    }
+    .wa-sticky:hover, .wa-sticky:active { background: var(--wa-green-d); }
+    .wa-sticky:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+
+    /* keep the footer's last line clear of the button */
+    footer { padding-bottom: calc(2rem + 86px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wa-sticky, .wa-sticky.is-visible { transition: none; }
+}
