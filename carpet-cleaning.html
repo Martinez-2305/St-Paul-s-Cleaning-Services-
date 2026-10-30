@@ -7,12 +7,12 @@
     <link rel="apple-touch-icon" href="StPauls-logo.png">
     <title>Professional Carpet Cleaning Epsom Surrey | St Paul's Cleaning Services</title>
     <meta name="description" content="Professional carpet cleaning in Epsom, Sutton, Wimbledon, Cheam, Banstead and across Surrey. Hot water extraction, stain removal and allergen treatment. From £100 for 2 rooms. Fully insured.">
-    <link rel="canonical" href="https://stpaulscleaning.co.uk/carpet-cleaning.html">
+    <link rel="canonical" href="https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html">
     <!-- Open Graph -->
     <meta property="og:title" content="Professional Carpet Cleaning Epsom & Surrey | St Paul's Cleaning Services">
     <meta property="og:description" content="Hot water extraction carpet cleaning across Epsom & Surrey. Removes deep stains, allergens & odours. Safe for children & pets. From £60. Fully insured.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stpaulscleaning.co.uk/carpet-cleaning.html">
+    <meta property="og:url" content="https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html">
     <meta property="og:locale" content="en_GB">
     <meta property="og:site_name" content="St Paul's Cleaning Services">
     <!-- Twitter Card -->
@@ -32,11 +32,11 @@
       "@graph": [
         {
           "@type": "Service",
-          "@id": "https://stpaulscleaning.co.uk/carpet-cleaning.html#service",
+          "@id": "https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html#service",
           "name": "Carpet Cleaning Epsom & Surrey",
           "description": "Professional hot water extraction carpet cleaning across Epsom, Surrey and surrounding areas. Removes deep-set dirt, stains, allergens and odours.",
-          "provider": {"@id": "https://stpaulscleaning.co.uk/#business"},
-          "areaServed": {"@type": "AdministrativeArea", "name": "Surrey"},
+          "provider": {"@id": "https://www.stpaulscleaningservices.co.uk/#business"},
+          "areaServed": [{"@type": "City", "name": "Epsom"}, {"@type": "City", "name": "Ewell"}, {"@type": "City", "name": "Ashtead"}, {"@type": "City", "name": "Leatherhead"}, {"@type": "City", "name": "Tadworth"}, {"@type": "City", "name": "Banstead"}, {"@type": "City", "name": "Cheam"}, {"@type": "City", "name": "Sutton"}],
           "offers": {
             "@type": "Offer",
             "price": "60",
@@ -49,18 +49,18 @@
         },
         {
           "@type": "WebPage",
-          "@id": "https://stpaulscleaning.co.uk/carpet-cleaning.html#webpage",
-          "url": "https://stpaulscleaning.co.uk/carpet-cleaning.html",
+          "@id": "https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html#webpage",
+          "url": "https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html",
           "name": "Professional Carpet Cleaning Epsom Surrey | St Paul's Cleaning Services",
           "description": "Professional carpet cleaning in Epsom and Surrey using hot water extraction. Stain and allergen removal.",
           "inLanguage": "en-GB",
-          "isPartOf": {"@id": "https://stpaulscleaning.co.uk/#website"},
+          "isPartOf": {"@id": "https://www.stpaulscleaningservices.co.uk/#website"},
           "breadcrumb": {
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://stpaulscleaning.co.uk/"},
-              {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://stpaulscleaning.co.uk/#services"},
-              {"@type": "ListItem", "position": 3, "name": "Carpet Cleaning", "item": "https://stpaulscleaning.co.uk/carpet-cleaning.html"}
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.stpaulscleaningservices.co.uk/"},
+              {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.stpaulscleaningservices.co.uk/#services"},
+              {"@type": "ListItem", "position": 3, "name": "Carpet Cleaning", "item": "https://www.stpaulscleaningservices.co.uk/carpet-cleaning.html"}
             ]
           }
         },
@@ -202,10 +202,15 @@
         .footer-legal a:hover { color: rgba(255,255,255,0.7); }
         .footer-mark { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3); }
         .footer-mark span { width: 6px; height: 6px; background: var(--red); transform: rotate(45deg); display: inline-block; }
+        .footer-credit { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
+        .footer-credit a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+        .footer-credit a:hover, .footer-credit a:focus-visible { color: var(--red); }
 
         @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } .includes-grid { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; gap: 3rem; } .process-steps { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 768px) { :root { --nav-h: 100px; } .nav-links { display: none; } .hamburger { display: flex; } .footer-grid { grid-template-columns: 1fr; } .includes-grid { grid-template-columns: 1fr; } .checklist { grid-template-columns: 1fr; } .benefits-strip { gap: 1.2rem; } .nav-logo img { height: 80px; } nav.compact .nav-logo img { height: 48px; } }
         @media (max-width: 480px) { .sec { padding: 5rem 5%; } .process-steps { grid-template-columns: 1fr; } }
+        /* Long nav labels wrap below this width, so use the menu button instead */
+        @media (max-width: 1199px) { .nav-links { display: none; } .hamburger { display: flex; } }
     </style>
 </head>
 <body>
@@ -217,6 +222,7 @@
         <li><a href="index.html#prices">Prices</a></li>
         <li><a href="index.html#our-work">Our Work</a></li>
         <li><a href="index.html#about">Why Choose Us</a></li>
+        <li><a href="areas-epsom.html">House Cleaning in Epsom</a></li>
         <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
@@ -224,7 +230,7 @@
 </nav>
 
 <div class="mob-menu" id="mobMenu">
-    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a><a href="index.html#prices">Prices</a><a href="index.html#our-work">Our Work</a><a href="index.html#about">Why Choose Us</a><a href="index.html#contact">Contact</a>
+    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a><a href="index.html#prices">Prices</a><a href="index.html#our-work">Our Work</a><a href="index.html#about">Why Choose Us</a><a href="areas-epsom.html">House Cleaning in Epsom</a><a href="index.html#contact">Contact</a>
 </div>
 
 <!-- HERO -->
@@ -385,14 +391,17 @@
     <div class="footer-grid">
         <div class="footer-brand"><img src="StPauls-logo.png" alt="St Paul's Cleaning Services"><p>Professional cleaning services delivered with care, consistency, and an uncompromising attention to detail. Your satisfaction is always guaranteed.</p></div>
         <div class="footer-col"><h4>Services</h4><ul><li><a href="regular-cleaning.html">Regular Cleaning</a></li><li><a href="deep-clean.html">Deep Cleaning</a></li><li><a href="deep-clean.html">End of Tenancy</a></li><li><a href="oven-cleaning.html">Oven &amp; BBQ</a></li><li><a href="carpet-cleaning.html">Carpet Cleaning</a></li></ul></div>
-        <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#our-work">Our Work</a></li><li><a href="index.html#about">Why Choose Us</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="areas-epsom.html">House Cleaning in Epsom</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#our-work">Our Work</a></li><li><a href="index.html#about">Why Choose Us</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
         <div class="footer-col"><h4>Contact</h4>
             <div class="footer-contact-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg><span>+447930405972</span></div>
             <div class="footer-contact-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@stpaulscleaning.co.uk</span></div>
             <div class="footer-contact-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Epsom, Surrey &amp; Surrounding Areas</span></div>
         </div>
     </div>
-    <div class="footer-bottom"><span>&copy; 2026 St Paul's Cleaning Services. All rights reserved.</span><div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Cookie Policy</a><a href="#">Terms of Service</a></div><div class="footer-mark"><span></span><small>Professional. Reliable. Spotless.</small><span></span></div></div>
+    <div class="footer-bottom"><span>&copy; 2026 St Paul's Cleaning Services. All rights reserved.</span><div class="footer-legal"><a href="privacy-policy.html">Privacy &amp; Cookie Policy</a></div><div class="footer-mark"><span></span><small>Professional. Reliable. Spotless.</small><span></span></div></div>
+    <div class="footer-credit">
+        Website Created by <a href="https://www.martkamdigital.com/" target="_blank" rel="noopener">MartKam Digital</a>
+    </div>
 </footer>
 
 <script>

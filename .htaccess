@@ -1,14 +1,21 @@
 Options -Indexes
 DirectoryIndex index.html
 
-# ── Force HTTPS
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# ── Force non-www (canonical domain)
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+# ── Block files that are in the Git repo but must never be served
+# Hostinger's Git deploy copies the whole repo (including .git) into public_html.
+# .well-known stays reachable so SSL certificates can renew.
+RewriteRule ^\.well-known/ - [L]
+RewriteRule (^|/)\. - [F,L]
+RewriteRule ^supabase(/|$) - [F,L]
+RewriteRule \.(md|text|toml|sql|ts|sh|log|ya?ml|lock)$ - [F,NC,L]
+RewriteRule ^(package(-lock)?\.json|composer\.(json|lock))$ - [F,NC,L]
+
+# ── One redirect to https://www. (canonical domain is www.stpaulscleaningservices.co.uk)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\.stpaulscleaningservices\.co\.uk$ [NC]
+RewriteRule ^ https://www.stpaulscleaningservices.co.uk%{REQUEST_URI} [L,R=301]
 
 # ── Redirect /index.html to root /
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.html[\s?] [NC]
@@ -18,30 +25,31 @@ RewriteRule ^index\.html$ / [R=301,L]
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
 
 # ── Gzip Compression
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json application/xml text/xml text/plain image/svg+xml
 </IfModule>
 
 # ── Browser Caching
+# HTML is rechecked on every visit so new deploys show up straight away.
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType text/html                 "access plus 1 day"
+    ExpiresByType text/html                 "access plus 0 seconds"
     ExpiresByType text/css                  "access plus 1 month"
     ExpiresByType application/javascript    "access plus 1 month"
-    ExpiresByType image/png                 "access plus 6 months"
-    ExpiresByType image/jpeg                "access plus 6 months"
-    ExpiresByType image/webp                "access plus 6 months"
-    ExpiresByType image/svg+xml             "access plus 6 months"
+    ExpiresByType image/png                 "access plus 1 month"
+    ExpiresByType image/jpeg                "access plus 1 month"
+    ExpiresByType image/webp                "access plus 1 month"
+    ExpiresByType image/svg+xml             "access plus 1 month"
     ExpiresByType image/x-icon              "access plus 1 year"
     ExpiresByType application/xml           "access plus 1 day"
     ExpiresByType text/xml                  "access plus 1 day"
 </IfModule>
 
-# ── Custom 404
-ErrorDocument 404 /index.html
+# ── Custom 404 (a real 404 page, so Google doesn't treat missing URLs as copies of the homepage)
+ErrorDocument 404 /404.html

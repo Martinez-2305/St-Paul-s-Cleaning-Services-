@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://stpaulscleaning.co.uk/sitemap.xml
+Sitemap: https://www.stpaulscleaningservices.co.uk/sitemap.xml
 
 # Block any private or admin paths if added in future
 Disallow: /admin/

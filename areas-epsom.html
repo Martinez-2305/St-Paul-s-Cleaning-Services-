@@ -10,14 +10,14 @@
     <title>House Cleaning Epsom | St Paul's Cleaning Services — Surrey</title>
     <meta name="description" content="Professional house cleaning in Epsom, Surrey. Regular cleans from £20/hr, deep cleans, carpet cleaning & oven cleaning. Fully insured, DBS checked, 18+ years local experience. Free quote today.">
     <meta name="keywords" content="house cleaning epsom, deep clean epsom, carpet cleaning epsom, regular house clean epsom, house cleaning surrey, domestic cleaning epsom, end of tenancy cleaning epsom, oven cleaning epsom, cleaning services KT17 KT18 KT19">
-    <link rel="canonical" href="https://stpaulscleaning.co.uk/areas-epsom.html">
+    <link rel="canonical" href="https://www.stpaulscleaningservices.co.uk/areas-epsom.html">
     <meta name="robots" content="index, follow">
 
     <!-- ═══ OPEN GRAPH ═══ -->
     <meta property="og:title" content="House Cleaning Epsom | St Paul's Cleaning Services">
     <meta property="og:description" content="Trusted house cleaning in Epsom & Surrey. Regular, deep, carpet & oven cleaning. Fully insured, DBS checked, 18+ years experience. Free quotes.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stpaulscleaning.co.uk/areas-epsom.html">
+    <meta property="og:url" content="https://www.stpaulscleaningservices.co.uk/areas-epsom.html">
     <meta property="og:locale" content="en_GB">
     <meta property="og:site_name" content="St Paul's Cleaning Services">
     <!-- Twitter Card -->
@@ -38,24 +38,24 @@
       "@graph": [
         {
           "@type": "LocalBusiness",
-          "@id": "https://stpaulscleaning.co.uk/#business",
+          "@id": "https://www.stpaulscleaningservices.co.uk/#business",
           "name": "St Paul's Cleaning Services",
           "description": "Professional domestic cleaning company serving Epsom and surrounding Surrey areas. Services include regular house cleaning, deep cleaning, carpet cleaning, and oven cleaning.",
-          "url": "https://stpaulscleaning.co.uk",
+          "url": "https://www.stpaulscleaningservices.co.uk/",
           "telephone": "+447930405972",
           "email": "info@stpaulscleaning.co.uk",
           "priceRange": "££",
           "currenciesAccepted": "GBP",
           "paymentAccepted": "Cash, Bank Transfer",
           "areaServed": [
-            { "@type": "City", "name": "Epsom" },
-            { "@type": "City", "name": "Ewell" },
-            { "@type": "City", "name": "Cheam" },
-            { "@type": "City", "name": "Banstead" },
-            { "@type": "City", "name": "Leatherhead" },
-            { "@type": "City", "name": "Sutton" },
-            { "@type": "City", "name": "Wimbledon" },
-            { "@type": "City", "name": "Kingston upon Thames" }
+            {"@type": "City", "name": "Epsom"},
+            {"@type": "City", "name": "Ewell"},
+            {"@type": "City", "name": "Ashtead"},
+            {"@type": "City", "name": "Leatherhead"},
+            {"@type": "City", "name": "Tadworth"},
+            {"@type": "City", "name": "Banstead"},
+            {"@type": "City", "name": "Cheam"},
+            {"@type": "City", "name": "Sutton"}
           ],
           "address": {
             "@type": "PostalAddress",
@@ -73,12 +73,6 @@
             { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
             { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "14:00" }
           ],
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5",
-            "reviewCount": "47",
-            "bestRating": "5"
-          },
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Cleaning Services in Epsom",
@@ -128,9 +122,9 @@
         {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://stpaulscleaning.co.uk/" },
-            { "@type": "ListItem", "position": 2, "name": "Areas We Cover", "item": "https://stpaulscleaning.co.uk/#areas" },
-            { "@type": "ListItem", "position": 3, "name": "Epsom", "item": "https://stpaulscleaning.co.uk/areas-epsom.html" }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.stpaulscleaningservices.co.uk/" },
+            { "@type": "ListItem", "position": 2, "name": "Areas We Cover", "item": "https://www.stpaulscleaningservices.co.uk/#areas" },
+            { "@type": "ListItem", "position": 3, "name": "Epsom", "item": "https://www.stpaulscleaningservices.co.uk/areas-epsom.html" }
           ]
         }
       ]
@@ -336,6 +330,9 @@
         .footer-legal a:hover { color: rgba(255,255,255,0.7); }
         .footer-mark { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3); }
         .footer-mark span { width: 6px; height: 6px; background: var(--red); transform: rotate(45deg); display: inline-block; }
+        .footer-credit { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
+        .footer-credit a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+        .footer-credit a:hover, .footer-credit a:focus-visible { color: var(--red); }
 
         /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
@@ -361,6 +358,8 @@
             .sec { padding: 5rem 5%; }
             .page-hero { padding: 4rem 5%; padding-top: calc(var(--nav-h) + 2.5rem); }
         }
+        /* Long nav labels wrap below this width, so use the menu button instead */
+        @media (max-width: 1199px) { .nav-links { display: none; } .hamburger { display: flex; } }
     </style>
 </head>
 <body>
@@ -373,7 +372,7 @@
         <li><a href="index.html#prices">Prices</a></li>
         <li><a href="index.html#our-work">Our Work</a></li>
         <li><a href="index.html#about">Why Choose Us</a></li>
-        <li><a href="index.html#areas">Areas</a></li>
+        <li><a href="areas-epsom.html" aria-current="page">House Cleaning in Epsom</a></li>
         <li><a href="contact.html" class="nav-cta">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -390,7 +389,7 @@
     <a href="index.html#prices">Prices</a>
     <a href="index.html#our-work">Our Work</a>
     <a href="index.html#about">Why Choose Us</a>
-    <a href="index.html#areas">Areas</a>
+    <a href="areas-epsom.html" aria-current="page">House Cleaning in Epsom</a>
     <a href="contact.html">Contact</a>
 </div>
 
@@ -766,7 +765,7 @@
         <div class="footer-col">
             <h4>Areas</h4>
             <ul>
-                <li><a href="areas-epsom.html">Epsom</a></li>
+                <li><a href="areas-epsom.html" aria-current="page">House Cleaning in Epsom</a></li>
                 <li><a href="index.html#areas">All Areas</a></li>
                 <li><a href="index.html#areas">Ewell</a></li>
                 <li><a href="index.html#areas">Cheam &amp; Sutton</a></li>
@@ -790,14 +789,14 @@
     </div>
     <div class="footer-bottom">
         <span>&copy; 2026 St Paul's Cleaning Services. All rights reserved.</span>
-        <div class="footer-legal">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms &amp; Conditions</a>
-        </div>
+        <div class="footer-legal"><a href="privacy-policy.html">Privacy &amp; Cookie Policy</a></div>
         <div class="footer-mark">
             <span></span>
             Epsom, Surrey
         </div>
+    </div>
+    <div class="footer-credit">
+        Website Created by <a href="https://www.martkamdigital.com/" target="_blank" rel="noopener">MartKam Digital</a>
     </div>
 </footer>
 
